@@ -2,7 +2,6 @@ ARG RUBY_VERSION
 FROM ruby:$RUBY_VERSION-slim-buster
 
 # ARGに関してはdocker-compose.ymlから渡されてくる想定です
-ARG PG_MAJOR
 ARG NODE_MAJOR
 ARG YARN_VERSION
 ARG BUNDLER_VERSION
@@ -31,11 +30,6 @@ RUN apt-get update -qq \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
-# Add PostgreSQL to sources list
-# https://www.postgresql.org/download/linux/debian/
-RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
-
 # Add NodeJS to sources list
 # https://github.com/nodesource/distributions/blob/master/README.md#debinstall
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
@@ -52,7 +46,6 @@ COPY .dockerdev/Aptfile /tmp/Aptfile
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     libpq-dev \
-    postgresql-client-$PG_MAJOR \
     nodejs \
     yarn=$YARN_VERSION-1 \
     $(cat /tmp/Aptfile | xargs) && \

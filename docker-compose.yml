@@ -9,7 +9,6 @@ x-app: &app
     dockerfile: ./.dockerdev/Dockerfile
     args:
       RUBY_VERSION: '2.6.5'
-      PG_MAJOR: '12'
       NODE_MAJOR: '12'
       YARN_VERSION: '1.21.1'
       BUNDLER_VERSION: '2.1.2'
@@ -26,8 +25,6 @@ x-app: &app
 # Rubyのサービスで共有するボリュームを提供する
 x-backend-volumes: &backend-volumes
   volumes:
-    # postgresの設定ファイル
-    - .dockerdev/.psqlrc:/root/.psqlrc:ro
     # bashrcの設定ファイル
     - .dockerdev/.bashrc:/root/.bashrc:ro
     # :cachedはMacOSでのDocker環境の効率を高めるため
@@ -59,15 +56,12 @@ x-backend: &backend
     # コマンドを使用した時のhistoryが永続化されるので再度コンテナにアクセスした時に
     # 以前使用したコマンドを履歴から使用できるようになる
     HISTFILE: /app/log/.bash_history
-    PSQL_HISTFILE: /app/log/.psql_history
     # `rails credentials:edit`コマンドでcredentialファイルを管理するのに使用する
     EDITOR: vi
     # NOTE:説明が難しくてまだ理解できていないとりあえずメモリーに関係があるもの
     MALLOC_ARENA_MAX: 2
     # pumaのworker数設定
     WEB_CONCURRENCY: ${WEB_CONCURRENCY:-1}
-  depends_on:
-    - postgres
     - redis
 
 services:
@@ -118,23 +112,7 @@ services:
       # ようになります（デフォルトではlocalhostで実行されます）
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
 
-  postgres:
-    image: postgres:12.1
-    volumes:
-      # ここのディレクトリに「/docker-entrypoint-initdb.d/」SQLファイルを置いておくと自動で実行してくれる
-      # 詳しくは「https://hub.docker.com/_/postgres」の「Initialization scripts」を参照すること
-      - .dockerdev/init_postgres/:/docker-entrypoint-initdb.d/
-      # psqlコマンドのプロンプトを見やすくするための設定
-      - .dockerdev/.psqlrc:/root/.psqlrc:ro
-      - postgres:/var/lib/postgresql/data
-      - ./log:/root/log:cached
-    environment:
-      PSQL_HISTFILE: /root/log/.psql_history
-    ports:
-      - '5432:5432'
-
 volumes:
-  postgres:
   bundle:
   node_modules:
   rails_cache:
