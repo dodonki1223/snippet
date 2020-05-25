@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SnippetsController < ApplicationController
   before_action :set_snippet, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class SnippetsController < ApplicationController
 
   # GET /snippets/1
   # GET /snippets/1.json
-  def show
-  end
+  def show; end
 
   # GET /snippets/new
   def new
@@ -18,8 +19,7 @@ class SnippetsController < ApplicationController
   end
 
   # GET /snippets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /snippets
   # POST /snippets.json
@@ -62,13 +62,14 @@ class SnippetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_snippet
-      @snippet = Snippet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def snippet_params
-      params.require(:snippet).permit(:title, :language, :contents)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_snippet
+    @snippet = Snippet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def snippet_params
+    params.require(:snippet).permit(:title, :language, :contents)
+  end
 end
