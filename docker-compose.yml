@@ -62,7 +62,6 @@ x-backend: &backend
     MALLOC_ARENA_MAX: 2
     # pumaのworker数設定
     WEB_CONCURRENCY: ${WEB_CONCURRENCY:-1}
-    - redis
 
 services:
   rails:
@@ -88,18 +87,6 @@ services:
     ports:
       - '3002:3002'
 
-  sidekiq:
-    <<: *backend
-    <<: *backend-volumes
-    command: bundle exec sidekiq -C config/sidekiq.yml
-
-  redis:
-    image: redis:5.0-alpine
-    volumes:
-      - redis:/data
-    ports:
-      - 6379
-
   webpacker:
     <<: *app
     <<: *backend-volumes
@@ -117,4 +104,3 @@ volumes:
   node_modules:
   rails_cache:
   packs:
-  redis:
