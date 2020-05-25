@@ -20,11 +20,7 @@ NotUseDefaultRouteCheck: { }
 NotUseTimeAgoInWordsCheck: { }
 OveruseRouteCustomizationsCheck: { customize_count: 3 }
 ProtectMassAssignmentCheck: { }
-RemoveEmptyHelpersCheck: {
-  ignored_files: [
-    'app/helpers/high_scores_helper.rb', # Scaffoldで作成したhelperがemptyのため一旦除外する（後でこの設定を削除する事）
-  ]
-}
+RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
 RemoveUnusedMethodsInControllersCheck: { except_methods: [] }
