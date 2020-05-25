@@ -25,7 +25,7 @@ RUN apt-get update -qq \
     curl \
     less \
     git \
-    sqlite \
+    sqlite3 \
     libsqlite3-dev \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* \
