@@ -48,8 +48,6 @@ x-backend: &backend
   environment:
     # この*envは*appを読み込んでいないと使用できません
     <<: *env
-    # redisにアクセスできるようの設定
-    REDIS_URL: redis://redis:6379/
     # bootsnapのキャッシュディレクトリを永続化したディレクトリに設定
     BOOTSNAP_CACHE_DIR: /bundle/bootsnap
     WEBPACKER_DEV_SERVER_HOST: webpacker
