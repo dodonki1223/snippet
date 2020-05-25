@@ -59,4 +59,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # CSRF対策をfalseにする（今回は学習用なので無効化します）
+  config.action_controller.allow_forgery_protection = false
 end
