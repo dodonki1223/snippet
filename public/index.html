@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- 
+    Google Fonts の読み込み 
+      https://developers.google.com/fonts/?hl=ja
+  -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <!-- 
+    Vuetify 2.0 css の読み込み 
+      https://vuetifyjs.com/ja/introduction/long-term-support/
+  -->
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.0/dist/vuetify.min.css" rel="stylesheet">
+  <!-- 
+    Vue.js 2.6.11 の読み込み
+      https://jp.vuejs.org/index.html
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  <!--  
+    axios の読み込み
+      https://github.com/axios/axios
+  -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- 
+    Vuetify 2.0 js の読み込み 
+      https://vuetifyjs.com/ja/introduction/long-term-support/
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.0/dist/vuetify.js"></script>
+
+
+  <title>Snippet App</title>
+</head>
+<body>
+  <v-app id="app">
+    <v-card
+     color="grey lighten-4"
+     flat
+     tile
+    >
+      <!-- ツールバー（https://vuetifyjs.com/ja/components/toolbars/） -->
+      <v-toolbar color="red lighten-3" dark>
+        <v-toolbar-title>Snippet App</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <!-- ボタン（https://vuetifyjs.com/ja/components/buttons/ ）-->
+        <v-btn text>New Snippet</v-btn>
+      </v-toolbar>
+    </v-card>
+  </v-app>
+  <script>
+    new Vue({
+      // vuetifyの読み込みが必要
+      vuetify: new Vuetify(),
+      el: '#app',
+      data() {
+        return {
+        }
+      },
+      mounted() {
+      },
+      methods: {
+      }
+    })
+  </script>
+</body>
+</html>
