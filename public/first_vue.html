@@ -3,6 +3,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <title>Snippet App</title>
 </head>
 <body>
@@ -10,6 +12,10 @@
     <p>{{ message }}</p>
     <p>{{ message2 }}</p>
     <button v-on:click="changeMessage">Change</button>
+    <ul>
+      <li v-for="list in lists">{{ list.title }}</li>
+    </ul>
+    <button v-on:click="listSnippet">listSnippet</button>
   </div>
   <script>
     new Vue({
@@ -18,6 +24,7 @@
         return {
           message: 'Hello Vue!',
           message2: 'Hoge',
+          lists: [{ title: 'title1' }, { title: 'title2' }]
         }
       },
       // アプリが立ち上がった最初のタイミングで実行される関数を定義できます
@@ -30,6 +37,18 @@
         },
         changeMessage: function() {
           this.message = 'Changed Message'
+          axios.get('/snippets.json')
+            .then(response => (
+              this.message2 = response.data[0]['title']
+            )
+          )
+        },
+        listSnippet: function() {
+          axios.get('snippets.json')
+            .then(response => (
+              this.lists = response.data
+            )
+          )
         }
       }
     })
