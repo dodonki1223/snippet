@@ -72,8 +72,9 @@ RSpec.describe SnippetsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Snippet' do
-        expect { post :create, params: { snippet: valid_attributes }, session: valid_session }.to
-        change(Snippet, :count).by(1)
+        expect do
+          post :create, params: { snippet: valid_attributes }, session: valid_session
+        end.to change(Snippet, :count).by(1)
       end
 
       it 'redirects to the created snippet' do
