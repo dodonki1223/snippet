@@ -9,6 +9,7 @@
   <div id="app">
     <p>{{ message }}</p>
     <p>{{ message2 }}</p>
+    <button v-on:click="changeMessage">Change</button>
   </div>
   <script>
     new Vue({
@@ -17,6 +18,18 @@
         return {
           message: 'Hello Vue!',
           message2: 'Hoge',
+        }
+      },
+      // アプリが立ち上がった最初のタイミングで実行される関数を定義できます
+      mounted() {
+        this.setMessage()
+      },
+      methods: {
+        setMessage: function() {
+          this.message = 'Set Message'
+        },
+        changeMessage: function() {
+          this.message = 'Changed Message'
         }
       }
     })
