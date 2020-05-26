@@ -16,6 +16,13 @@
       <li v-for="list in lists">{{ list.title }}</li>
     </ul>
     <button v-on:click="listSnippet">listSnippet</button>
+
+    <div>
+      <input v-model="title" placeholder="title">
+      <input v-model="language" placeholder="language">
+      <input v-model="contents" placeholder="contents">
+    </div>
+    <button v-on:click="postSnippet">postSnippet</button>
   </div>
   <script>
     new Vue({
@@ -24,7 +31,10 @@
         return {
           message: 'Hello Vue!',
           message2: 'Hoge',
-          lists: [{ title: 'title1' }, { title: 'title2' }]
+          lists: [{ title: 'title1' }, { title: 'title2' }],
+          title: 'new title',
+          language: 'Ruby',
+          contents: 'contents',
         }
       },
       // アプリが立ち上がった最初のタイミングで実行される関数を定義できます
@@ -47,6 +57,14 @@
           axios.get('snippets.json')
             .then(response => (
               this.lists = response.data
+            )
+          )
+        },
+
+        postSnippet: function() {
+          axios.post('/snippets.json', { title: this.title, lunguage: this.language, contents: this.contents })
+            .then(response => (
+              this.listSnippet()
             )
           )
         }
