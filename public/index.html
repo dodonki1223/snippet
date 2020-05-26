@@ -75,6 +75,33 @@
             </v-card>
           </v-col>
         </v-row>
+        <!-- 
+          ダイアログ（https://vuetifyjs.com/ja/components/dialogs/） 
+            v-dailog v-model="dialogPostFlag"
+              dialogPostFlagの値がTrueの時はダイアログが表示され、Falseの時はダイアログが非表示となります
+              v-model=変数名 でVue側で保持している変数との紐付けさせることができる
+        -->
+        <v-dialog v-model="dialogPostFlag" width="800" persistent>
+          <v-card>
+            <v-card-title class="headline red lighten-3 white--text" primary-title>
+              Create Form
+            </v-card-title>
+            <v-row>
+              <v-text-field v-model="postTitle" label="Snippet Title" required style="margin: 30px 50px 20px 50px"></v-text-field>
+            </v-row>
+            <v-row>
+              <v-text-field v-model="postLanguage" label="Language" required style="margin: 20px 50px 20px 50px"></v-text-field>
+            </v-row>
+            <v-row>
+              <v-card-text style="margin: 0px 30px 20px 30px">
+                <p>Snippet</p>
+                <div style="width:100%">
+                  <textarea style="width:100%; height: 300px; background-color: #efefef; padding: 3px" v-model="postContents"></textarea>
+                </div>
+              </v-card-text>
+            </v-row>
+          </v-card>
+        </v-dialog>
       </v-container>
     </v-card>
   </v-app>
@@ -87,6 +114,10 @@
         return {
           snippetList: ['', ''],
           allData: ['', ''],
+          dialogPostFlag: true,
+          postTitle: '',
+          postLanguage: '',
+          postContents: '',
         }
       },
       mounted() {
