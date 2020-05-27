@@ -69,7 +69,7 @@
               </div>
               <v-card-actions>
                 <v-btn text color="red" v-on:click="togglePutModal(snippet.id)">Update</v-btn>
-                <v-btn text color="gray" v-on:click="toggleDeleteModal">Delete</v-btn>
+                <v-btn text color="gray" v-on:click="toggleDeleteModal(snippet.id)">Delete</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -245,6 +245,7 @@
           this.dialogDeleteFlag = !this.dialogDeleteFlag
         },
         toggleDeleteModal: function(id) {
+          this.id = id
           this.dialogDeleteFlag = !this.dialogDeleteFlag
         },
       }
