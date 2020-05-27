@@ -51,7 +51,11 @@
             <div style="margin:10px">
               <h2>Snippets Shortcut</h2>
               <ul>
-                <li>Snippet Title</li>
+                <li v-for="snippet in snippetList" :key="snippet.id">
+                  <span id="snippet.id" v-on:click="goElem(snippet.id)">
+                    [{{ snippet.language }}] {{ snippet.title }}
+                  </span>
+                </li>
               </ul>
             </div>
           </v-col>
@@ -62,7 +66,7 @@
             -->
             <v-card style="margin-top:10px;" v-for="snippet in snippetList">
               <v-card-title primary-title>
-                <h3 class="headline">{{ snippet.title }}</h3>
+                <h3 v-bind:id="snippet.id" class="headline">{{ snippet.title }}</h3>
               </v-card-title>
               <div style="margin: 10px 20px;">
                 <textarea style="width: 100%; height: 300px; background-color: #efefef; padding: 3px;"> {{ snippet.contents }} </textarea>
@@ -248,6 +252,11 @@
           this.id = id
           this.dialogDeleteFlag = !this.dialogDeleteFlag
         },
+        goElem: function(id) {
+          // Element.scrollIntoViewメソッドを使用してスクロールさせる
+          //   https://developer.mozilla.org/ja/docs/Web/API/Element/scrollIntoView
+          document.getElementById(id).scrollIntoView(true)
+        }
       }
     })
   </script>
