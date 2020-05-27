@@ -74,6 +74,8 @@
               <v-card-actions>
                 <v-btn text color="red" v-on:click="togglePutModal(snippet.id)">Update</v-btn>
                 <v-btn text color="gray" v-on:click="toggleDeleteModal(snippet.id)">Delete</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn text color="red" v-on:click="goTop">Go Top</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -256,7 +258,10 @@
           // Element.scrollIntoViewメソッドを使用してスクロールさせる
           //   https://developer.mozilla.org/ja/docs/Web/API/Element/scrollIntoView
           document.getElementById(id).scrollIntoView(true)
-        }
+        },
+        goTop: function() {
+          document.getElementById('app').scrollIntoView(true)
+        },
       }
     })
   </script>
