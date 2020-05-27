@@ -28,7 +28,6 @@
   -->
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.0/dist/vuetify.js"></script>
 
-
   <title>Snippet App</title>
 </head>
 <body>
@@ -69,7 +68,7 @@
                 <textarea style="width: 100%; height: 300px; background-color: #efefef; padding: 3px;"> {{ snippet.contents }} </textarea>
               </div>
               <v-card-actions>
-                <v-btn text color="red" v-on:click="togglePutModal">Update</v-btn>
+                <v-btn text color="red" v-on:click="togglePutModal(snippet.id)">Update</v-btn>
                 <v-btn text color="gray">Delete</v-btn>
               </v-card-actions>
             </v-card>
@@ -197,7 +196,23 @@
           )
           this.dialogPostFlag = !this.dialogPostFlag
         },
-        togglePutModal: function() {
+        togglePutModal: function(id) {
+          axios.get('/snippets/' + id + '.json')
+            .then(response => {
+              this.putTitle    = response.data.title
+              this.putLanguage = response.data.language
+              this.putContents = response.data.contents
+            }
+          )
+          this.id = id
+          this.dialogPutFlag = !this.dialogPutFlag
+        },
+        putSnippet: function() {
+          axios.put('/snippets/' + this.id + '.json', { title: this.putTitle, language: this.putLanguage, contents: this.putContents })
+            .then(response => {
+              this.listSnippet()
+            }
+          )
           this.dialogPutFlag = !this.dialogPutFlag
         },
       }
