@@ -98,6 +98,7 @@
             </v-row>
             <v-row>
               <v-text-field v-model="postLanguage" label="Language" required style="margin: 20px 50px 20px 50px"></v-text-field>
+              <v-select v-model="postLanguage" :items="languagesForEdit" label="Select from history" style="margin: 20px 20px 0px 0px"></v-select>
             </v-row>
             <v-row>
               <v-card-text style="margin: 0px 30px 0px 30px">
@@ -189,6 +190,7 @@
           snippetList: ['', ''],
           allData: ['', ''],
           languages: ['ALL'],
+          languagesForEdit: [],
           language: 'ALL',
           dialogPostFlag: false,
           postTitle: '',
