@@ -69,7 +69,7 @@
                 <textarea style="width: 100%; height: 300px; background-color: #efefef; padding: 3px;"> {{ snippet.contents }} </textarea>
               </div>
               <v-card-actions>
-                <v-btn text color="red">Update</v-btn>
+                <v-btn text color="red" v-on:click="togglePutModal">Update</v-btn>
                 <v-btn text color="gray">Delete</v-btn>
               </v-card-actions>
             </v-card>
@@ -116,6 +116,39 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
+        <!-- 更新用のダイアログ -->
+        <v-dialog v-model="dialogPutFlag" width="800" persistent>
+          <v-card>
+            <v-card-title class="headline red lighten-3 white--text" primary-title>
+              Create Form
+            </v-card-title>
+            <v-row>
+              <v-text-field v-model="putTitle" label="Snippet Title" required style="margin: 30px 50px 20px 50px"></v-text-field>
+            </v-row>
+            <v-row>
+              <v-text-field v-model="putLanguage" label="Language" required style="margin: 20px 50px 20px 50px"></v-text-field>
+            </v-row>
+            <v-row>
+              <v-card-text style="margin: 0px 30px 0px 30px">
+                <p>Snippet</p>
+                <div style="width:100%">
+                  <textarea style="width:100%; height: 300px; background-color: #efefef; padding: 3px" v-model="putContents"></textarea>
+                </div>
+              </v-card-text>
+            </v-row>
+            <v-card-actions style="margin: 0px 20px 0px 20px">
+              <v-btn color="#grey lighten-4" text v-on:click="togglePutModal">
+                Cancel
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn color="red" text v-on:click="putSnippet">
+                Update Snippet
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
       </v-container>
     </v-card>
   </v-app>
@@ -132,6 +165,10 @@
           postTitle: '',
           postLanguage: '',
           postContents: '',
+          dialogPutFlag: false,
+          putTitle: '',
+          putLanguage: '',
+          putContents: '',
         }
       },
       mounted() {
@@ -159,6 +196,9 @@
             }
           )
           this.dialogPostFlag = !this.dialogPostFlag
+        },
+        togglePutModal: function() {
+          this.dialogPutFlag = !this.dialogPutFlag
         },
       }
     })
