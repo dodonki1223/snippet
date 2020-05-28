@@ -62,7 +62,7 @@ x-backend: &backend
     WEB_CONCURRENCY: ${WEB_CONCURRENCY:-1}
 
 services:
-  rails:
+  snippet:
     <<: *backend
     <<: *backend-volumes
     command: >
