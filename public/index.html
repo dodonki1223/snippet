@@ -62,6 +62,10 @@
             </div>
           </v-col>
           <v-col cols="7">
+            <div style="margin: 10px">
+              <h2>Search Snippet</h2>
+              <v-text-field v-model="searchWord" v-on:keyup="abstruct" label="Input Keyword"></v-text-field>
+            </div>
             <!-- 
               カード（https://vuetifyjs.com/ja/components/cards/） 
                 v-for で v-card が複数表示されるようにする
@@ -201,6 +205,7 @@
           putLanguage: '',
           putContents: '',
           dialogDeleteFlag: false,
+          searchWord: '',
         }
       },
       mounted() {
@@ -285,13 +290,19 @@
           if (this.language == 'ALL') {
             this.snippetList = []
             for (i = 0; i < this.allData.length; i++) {
-              this.snippetList.push(this.allData[i])
+              // TODO:どこかの項目がNULLの場合、エラーが出て正しく検索できない事象があるためのちに修正すること
+              if ( (this.allData[i].contents.indexOf(this.searchWord) !== -1 ) || (this.allData[i].title.indexOf(this.searchWord) !== -1 ) || (this.allData[i].language.indexOf(this.searchWord) !== -1) ) {
+                this.snippetList.push(this.allData[i])
+              }
             }
           } else if (this.languages != '') {
             this.snippetList = []
             for (i = 0; i < this.allData.length; i++) {
               if (this.allData[i].language == this.language) {
-                this.snippetList.push(this.allData[i])
+                // TODO:どこかの項目がNULLの場合、エラーが出て正しく検索できない事象があるためのちに修正すること
+                if ( (this.allData[i].contents.indexOf(this.searchWord) !== -1 ) || (this.allData[i].title.indexOf(this.searchWord) !== -1 ) || (this.allData[i].language.indexOf(this.searchWord) !== -1) ) {
+                  this.snippetList.push(this.allData[i])
+                }
               }
             }
           }
