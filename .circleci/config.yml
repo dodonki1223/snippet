@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@1.0.1
 executors:
   base:
     docker:
@@ -181,6 +183,10 @@ workflows:
     jobs:
       - setup
       - lint:
+          requires:
+            - setup
+      - docker/hadolint:
+          dockerfiles: .dockerdev/Dockerfile
           requires:
             - setup
       - test:
