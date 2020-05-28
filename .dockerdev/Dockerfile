@@ -6,6 +6,11 @@ ARG NODE_MAJOR
 ARG YARN_VERSION
 ARG BUNDLER_VERSION
 
+# パイプライン内のコマンドがエラーとなった時に中断するオプション
+#   これがないとパイプライン時に途中で失敗しているが最後が成功しているような時は
+#   成功とみなされてしまうため、この設定が必要である
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Common dependencies
 # DEBIAN_FRONTEND=noninteractive
 #   インストール時の対話などで処理が止まってしまう箇所をスキップしてくれる
