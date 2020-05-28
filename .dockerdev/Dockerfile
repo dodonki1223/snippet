@@ -23,6 +23,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #   特定のDockerレイヤにゴミを残さないための設定(http://docs.docker.jp/engine/userguide/storagedriver/imagesandcontainers.html#id3)
 #   取得したパッケージファイルのローカルリポジトリ、インストール中に作成されたすべての
 #   一時ファイルやログをクリーンアップする
+# hadolint ignore=DL3008
 RUN apt-get update -qq \
   && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     build-essential \
@@ -50,6 +51,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 # `.dockerdev/Aptfile` ここにインストールしたいものを書いておくことで追加でDocker内で使用できるようになる
 # Aptfileを別ファイルとして切り出すことによってプロジェクトごとの依存関係を無くせる（Dockerfileの使いまわしが可能になる）
 COPY .dockerdev/Aptfile /tmp/Aptfile
+# hadolint ignore=SC2002,SC2046,DL3008
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     libpq-dev \
