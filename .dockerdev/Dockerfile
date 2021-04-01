@@ -16,7 +16,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #   インストール時の対話などで処理が止まってしまう箇所をスキップしてくれる
 # --no-install-recommends
 #   推奨パッケージのインストールを行わなくなるので容量を節約できる
-# apt-get clean 
+# apt-get clean
 # rm -rf /var/cache/apt/archives/*
 # rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # truncate -s 0 /var/log/*log
@@ -52,7 +52,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 # Aptfileを別ファイルとして切り出すことによってプロジェクトごとの依存関係を無くせる（Dockerfileの使いまわしが可能になる）
 COPY .dockerdev/Aptfile /tmp/Aptfile
 # hadolint ignore=SC2002,SC2046,DL3008
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     libpq-dev \
     nodejs \
